@@ -35,11 +35,13 @@ namespace SummerReport
 
         private RenderTargetView posOutTarget;
 
+        private RenderTargetView gradOutTarget;
+
         private Form2 form2;
 
-        private IMatrixBinder matrixBinder;
         private Vector4[] verticies;
         private Texture2D posOuttexture;
+        private Texture2D gradOutTargetTexture;
 
         public Form1()
         {
@@ -49,7 +51,6 @@ namespace SummerReport
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.matrixBinder=new SummerReportMatrixBinder(this);
             form2=new Form2();
             form2.savePosMap.Click += savePosMap_Click;
             form2.Show();
@@ -133,8 +134,22 @@ namespace SummerReport
                     Usage = ResourceUsage.Default
                 });
                     this.posOutTarget = new RenderTargetView(device, posOuttexture);
+                   gradOutTargetTexture = new Texture2D(device, new Texture2DDescription()
+                    {
+                        ArraySize = 1,
+                        BindFlags = BindFlags.RenderTarget,
+                        CpuAccessFlags = CpuAccessFlags.None,
+                        Format = Format.R8G8B8A8_UNorm,
+                        Height = Height,
+                        Width = Width,
+                        MipLevels = 1,
+                        OptionFlags = ResourceOptionFlags.None,
+                        SampleDescription = new SampleDescription(1, 0),
+                        Usage = ResourceUsage.Default
+                    });
+                gradOutTarget=new RenderTargetView(device,gradOutTargetTexture);
                 device.ImmediateContext.InputAssembler.SetVertexBuffers(0,new VertexBufferBinding[]{new VertexBufferBinding(vertexBuffer,16,0)});
-                device.ImmediateContext.OutputMerger.SetTargets(renderTarget,posOutTarget);
+                device.ImmediateContext.OutputMerger.SetTargets(renderTarget,posOutTarget,gradOutTarget);
                 device.ImmediateContext.InputAssembler.InputLayout = inputLayout;
                 device.ImmediateContext.InputAssembler.PrimitiveTopology=PrimitiveTopology.TriangleList;
                 device.ImmediateContext.Rasterizer.SetViewports(new Viewport(0,0,Width,Height,0,1));
@@ -156,6 +171,8 @@ namespace SummerReport
         {
             SlimDX.Direct3D11.Resource.SaveTextureToFile(device.ImmediateContext, posOuttexture, ImageFileFormat.Png,
                 string.Format("posMap.bmp"));
+            SlimDX.Direct3D11.Resource.SaveTextureToFile(device.ImmediateContext,gradOutTargetTexture, ImageFileFormat.Png,
+    string.Format("sum.bmp"));
         }
 
         public void Render()
@@ -170,8 +187,9 @@ namespace SummerReport
             itr = int.TryParse(form2.itr.Text, out itr) ? itr : 0;
             xsc = float.TryParse(form2.xsc.Text, out xsc) ? xsc : 1;
             ysc = float.TryParse(form2.ysc.Text, out ysc) ? ysc : 1;
-            device.ImmediateContext.ClearRenderTargetView(renderTarget,new Color4(1,0,1,1));
-            device.ImmediateContext.ClearRenderTargetView(posOutTarget, new Color4(1, 1, 1, 1));
+            device.ImmediateContext.ClearRenderTargetView(renderTarget,new Color4(0,0,0,1));
+            device.ImmediateContext.ClearRenderTargetView(posOutTarget, new Color4(0,0,0, 1));
+            device.ImmediateContext.ClearRenderTargetView(gradOutTarget, new Color4(0,0,0, 1));
             effect.GetVariableBySemantic("WVP").AsMatrix().SetMatrix(Matrix.Identity);
             effect.GetVariableBySemantic("MAX").AsScalar().Set(max);
             effect.GetVariableBySemantic("MIN").AsScalar().Set(min);
