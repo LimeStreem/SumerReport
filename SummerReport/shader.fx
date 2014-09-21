@@ -1,4 +1,5 @@
-﻿float minimum : MIN = 0;
+﻿float4x4 wvp:WVP;
+float minimum : MIN = 0;
 float maximum : MAX = 1;
 float xScaling : XSC = 1;
 float yScaling : YSC = 1;
@@ -10,6 +11,13 @@ struct VS_OUTPUT
 	float4 svPosition : SV_Position;
 
 	float4 Position : POSITION;
+};
+
+struct PS_OUTPUT
+{
+	float4 height:SV_Target0;
+
+	float4 pos:SV_Target1;
 };
 
 float func(float2 p)
@@ -49,17 +57,22 @@ float2 nextPoint(float2 p)
 	return p - k*grad(p);
 }
 
+float4 toPosColor(float2 pos)
+{
+	return float4(pos.x / 2.0 + 0.5, 0, pos.y / 2.0 + 0.5, 1);
+}
+
 
 
 VS_OUTPUT vs(float4 pos:POSITION)
 {
 	VS_OUTPUT vo;
-	vo.svPosition = pos;
+	vo.svPosition = mul(pos,wvp);
 	vo.Position = pos;
 	return vo;
 }
 
-float4 ps(VS_OUTPUT vo):SV_Target
+PS_OUTPUT ps(VS_OUTPUT vo)
 {
 	float2 dp = vo.Position.xy*float2(xScaling,yScaling);
 	for (int i = 0; i < itr; i++)
@@ -67,8 +80,16 @@ float4 ps(VS_OUTPUT vo):SV_Target
 		dp = nextPoint(dp);
 	}
 	float f = func(dp);
-	if (abs(f) < epsilon)return 1.0.xxxx;
-	return float4((f-minimum)*(maximum-minimum), f>maximum?1:0, f<minimum?1:0, 1);
+	PS_OUTPUT pso;
+	pso.height=float4((f-minimum)*(maximum-minimum), f>maximum?1:0, f<minimum?1:0, 1);
+	if (abs(f) < epsilon){
+		pso.height = 1.0.xxxx;
+		pso.pos = toPosColor(dp);
+	}
+	else{
+		pso.pos = toPosColor(dp);
+	}
+	return pso;
 }
 
 technique10 DefaultTechnique{

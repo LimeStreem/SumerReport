@@ -10,3 +10,15 @@ c:\users\limestreem\documents\visual studio 2013\Projects\SummerReport\SummerRep
 c:\users\limestreem\documents\visual studio 2013\Projects\SummerReport\SummerReport\obj\Debug\SummerReport.pdb
 c:\users\limestreem\documents\visual studio 2013\Projects\SummerReport\SummerReport\obj\Debug\SummerReport.Form1.resources
 c:\users\limestreem\documents\visual studio 2013\Projects\SummerReport\SummerReport\obj\Debug\SummerReport.Form2.resources
+C:\Users\Lime\Documents\SumerReport\SummerReport\bin\Debug\SummerReport.exe.config
+C:\Users\Lime\Documents\SumerReport\SummerReport\obj\Debug\SummerReport.csprojResolveAssemblyReference.cache
+C:\Users\Lime\Documents\SumerReport\SummerReport\obj\Debug\SummerReport.Form1.resources
+C:\Users\Lime\Documents\SumerReport\SummerReport\obj\Debug\SummerReport.Form2.resources
+C:\Users\Lime\Documents\SumerReport\SummerReport\obj\Debug\SummerReport.Properties.Resources.resources
+C:\Users\Lime\Documents\SumerReport\SummerReport\obj\Debug\SummerReport.csproj.GenerateResource.Cache
+C:\Users\Lime\Documents\SumerReport\SummerReport\bin\Debug\shader.fx
+C:\Users\Lime\Documents\SumerReport\SummerReport\bin\Debug\SummerReport.exe
+C:\Users\Lime\Documents\SumerReport\SummerReport\bin\Debug\SummerReport.pdb
+C:\Users\Lime\Documents\SumerReport\SummerReport\bin\Debug\SlimDX.dll
+C:\Users\Lime\Documents\SumerReport\SummerReport\obj\Debug\SummerReport.exe
+C:\Users\Lime\Documents\SumerReport\SummerReport\obj\Debug\SummerReport.pdb

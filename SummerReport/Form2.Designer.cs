@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.xsc = new System.Windows.Forms.TextBox();
+            this.savePosMap = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // minimum
@@ -120,11 +121,21 @@
             this.xsc.Size = new System.Drawing.Size(100, 19);
             this.xsc.TabIndex = 7;
             // 
+            // savePosMap
+            // 
+            this.savePosMap.Location = new System.Drawing.Point(99, 226);
+            this.savePosMap.Name = "savePosMap";
+            this.savePosMap.Size = new System.Drawing.Size(161, 23);
+            this.savePosMap.TabIndex = 11;
+            this.savePosMap.Text = "save position map";
+            this.savePosMap.UseVisualStyleBackColor = true;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.savePosMap);
             this.Controls.Add(this.ysc);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
@@ -154,5 +165,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         public System.Windows.Forms.TextBox xsc;
+        public System.Windows.Forms.Button savePosMap;
     }
 }
